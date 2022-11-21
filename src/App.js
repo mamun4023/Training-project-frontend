@@ -1,15 +1,16 @@
+import React, {Component} from 'react';
 
+class App extends Component{
 
-function App(){ 
+    render(){
+        return(
+            <>
+                    font fff
+            
+            </>
+        )
+    }
 
-    return (
-        <>
-        
-        
-        
-        </>
-
-    )
 }
 
 export default App;
