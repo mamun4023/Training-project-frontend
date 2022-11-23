@@ -1,4 +1,5 @@
 import  React,{ Component } from 'react';
+import {Link} from 'react-router-dom';
 import "./sidebar.scss";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import Person3OutlinedIcon from '@mui/icons-material/Person3Outlined';
@@ -24,14 +25,18 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
             <hr/>
             <div className="center"> 
                 <ul>
+                    <Link to= "/"> 
                     <li> 
                         <DashboardIcon className="icon"/>
                         <span>   Dashboard  </span>
                     </li>
+                    </Link>
+                    <Link to= "/user"> 
                     <li> 
                         <Person3OutlinedIcon className="icon"/>
                         <span>   Users  </span>
                     </li>
+                    </Link>
                     <li> 
                         <Products className="icon"/>
                         <span> Products </span>
