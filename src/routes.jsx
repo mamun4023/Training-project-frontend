@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 
-import Home from './pages/home/home';
+import Product from './pages/product/product';
 import User from './pages/user/user';
+import Transaction from './pages/transaction/transaction'
 
 class Routing extends Component{
 
@@ -10,9 +11,9 @@ class Routing extends Component{
         return(
                 <BrowserRouter>
                     <Switch>
-                        <Route exact path= "/"  component={Home} />
-                        <Route path= "/user"  component={User} />
-
+                        <Route exact path= "/users"  component={User} />
+                        <Route path= "/products"  component={Product} />
+                        <Route path= "/transactions"  component={Transaction} />
                     </Switch>
                 </BrowserRouter>            
             

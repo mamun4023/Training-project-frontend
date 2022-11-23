@@ -1,10 +1,10 @@
 
 
 import React, {Component} from 'react';
-import './user.scss';
+import './transaction.scss';
 import Sidebar from '../../components/sidebar/sidebar';
 import Navbar from '../../components/navbar/navbar';
-import TransactonTable from '../../components/users/table'
+import TransactonTable from '../../components/transaction/table';
 
 
 class User extends Component{
@@ -18,7 +18,7 @@ class User extends Component{
                 <div className='rightSide'>
                     <Navbar/>
                     <div className="listContainer">
-                        <h3> User List</h3>
+                        <h3> Transaction History </h3>
                         <div className="listTilt">
                             <div className="latestTransaction">
                                 <TransactonTable />

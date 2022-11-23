@@ -2,7 +2,8 @@
 import React, {Component} from 'react';
 import Sidbar from '../../components/sidebar/sidebar';
 import Navbar from '../../components/navbar/navbar'
-import './home.scss';
+import './product.scss';
+import ProductTable from '../../components/product/table';
 
 class Home extends Component{
 
@@ -14,6 +15,14 @@ class Home extends Component{
                 </div>
                 <div className='rightSide' >
                     <Navbar />
+                    <div className="listContainer">
+                        <h3> Product List</h3>
+                        <div className="listTilt">
+                            <div className="latestTransaction">
+                                <ProductTable />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
