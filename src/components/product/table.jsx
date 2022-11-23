@@ -7,32 +7,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Avatar, TablePagination} from "@mui/material";
+import { Avatar} from "@mui/material";
 import ProductData from '../../jsondata/product.json'
-
+import ImageIcon from '@mui/icons-material/Image';
 
 class TransactionTable extends Component{
 
     state = {
-        products : ProductData,
-        page  : 1,
-        rowsPerPage  : 10,
+        products : ProductData
     }
-
-    handleChangePage = (event, newPage) => {
-        this.setState({page : newPage});
-      };
-
-    handleChangeRowsPerPage = (event) => {
-        this.setState({setRowsPerPage : parseInt(event.target.value, 10)}) 
-        this.setState({page  : 1 });
-      };
-
 
     render() {
 
         return (
-            <>
             <TableContainer component={Paper} className = "table">
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
@@ -56,7 +43,9 @@ class TransactionTable extends Component{
                         >
                             <TableCell className="tableCell">{row.id} </TableCell>
                             <TableCell className="tableCell"> 
-                                <Avatar src= {row.thumbnail} />
+                                <Avatar src= {row.thumbnail} variant="rounded" >
+                                    <ImageIcon />
+                                </Avatar>
                             </TableCell>
                             <TableCell className="tableCell">{row.title} </TableCell>
                             <TableCell className="tableCell">{row.price} </TableCell>
@@ -70,25 +59,6 @@ class TransactionTable extends Component{
                     </TableBody>
                 </Table>
             </TableContainer>
-            <TablePagination
-             rowsPerPageOptions={[5, 10, 25]}
-             component="div"
-             count={this.state.products.length}
-             rowsPerPage={this.state.rowsPerPage}
-             page={this.state.page}
-             onPageChange={this.handleChangePage}
-             onRowsPerPageChange={this.handleChangeRowsPerPage}
-             labelDisplayedRows={({ page }) => {
-               return `Page: ${page}`;
-             }}
-             backIconButtonProps={
-               this.state.page === 1 ? {disabled: true} : undefined
-             }
-            //  nextIconButtonProps={
-            //    filteredUsers.length === 0 || filteredUsers.length < rowsPerPage? {disabled: true} : undefined
-            //  }
-           />
-           </>
         );
     }
 }
