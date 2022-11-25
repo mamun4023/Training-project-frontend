@@ -11,7 +11,7 @@ class Routing extends Component{
         return(
                 <BrowserRouter>
                     <Switch>
-                        <Route exact path= "/users"  component={User} />
+                        <Route exact path= "/"  component={User} />
                         <Route path= "/products"  component={Product} />
                         <Route path= "/transactions"  component={Transaction} />
                     </Switch>

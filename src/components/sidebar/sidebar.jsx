@@ -15,7 +15,7 @@ class Sidebar extends Component{
                 <hr/>
                 <div className="center"> 
                     <ul>
-                        <Link to= "/users"> 
+                        <Link to= "/"> 
                             <li> 
                                 <Person3OutlinedIcon className="icon"/>
                                 <span> Users </span>

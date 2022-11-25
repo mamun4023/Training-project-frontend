@@ -8,15 +8,40 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Data from '../../jsondata/transaction.json'
+import { gql } from 'apollo-boost';
+import { graphql } from 'react-apollo';
+ 
+
+const TransactionQuery = gql`
+  query {
+    transactions(limit: 10, page : 1) {
+        id,
+        tranc_id,
+        productName,
+        userName,
+        date,
+        amount,
+        pay_method,
+        status,
+    }
+  }`
 
 class TransactionTable extends Component{
 
     render() {
+
+    const {transactions, loading} = this.props.data;
+
+    if(loading){
+        return <div> Loding...</div>
+    }
+
     return (
         <TableContainer component={Paper} className = "table">
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                 <TableRow>
+                    <TableCell className="tableCell">ID</TableCell>
                     <TableCell className="tableCell">Tracking ID</TableCell>
                     <TableCell className="tableCell" align="right">Product</TableCell>
                     <TableCell className="tableCell" align="right">Customer</TableCell>
@@ -27,17 +52,18 @@ class TransactionTable extends Component{
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {Data.map((row) => (
+                {transactions?.map((row) => (
                     <TableRow
-                        key={row.name}
+                        key={row.id}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                        <TableCell className="tableCell">{row.trackingId} </TableCell>
+                    >   
+                        <TableCell className="tableCell">{row.id} </TableCell>
+                        <TableCell className="tableCell">{row.tranc_id} </TableCell>
                         <TableCell className="tableCell" align="right">{row.productName}</TableCell>
-                        <TableCell className="tableCell" align="right">{row.customer}</TableCell>
+                        <TableCell className="tableCell" align="right">{row.userName}</TableCell>
                         <TableCell className="tableCell" align="right">{row.date}</TableCell>
                         <TableCell className="tableCell" align="right">${row.amount}</TableCell>
-                        <TableCell className="tableCell" align="right">{row.paymentMethod}</TableCell>
+                        <TableCell className="tableCell" align="right">{row.pay_method}</TableCell>
                         <TableCell className="tableCell" align="right">
                                 <span className= {`status ${row.status}`}>{row.status}</span>
                         </TableCell>
@@ -50,4 +76,4 @@ class TransactionTable extends Component{
 }
 }
 
-export default TransactionTable;
+export default graphql(TransactionQuery)(TransactionTable);

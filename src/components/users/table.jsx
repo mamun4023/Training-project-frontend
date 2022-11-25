@@ -9,56 +9,83 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import UserData from '../../jsondata/user.json'
 import { Avatar } from "@mui/material";
+import { gql } from 'apollo-boost';
+import { graphql } from 'react-apollo';
+ 
 
+const UserQuery = gql`
+  query {
+    users(limit: 10, page : 1) {
+        id,
+        firstName,
+        lastName,
+        image,
+        age,
+        birthDate,
+        phone,
+        email,
+        bloodGroup
+    }
+  }`
 
-
-class TransactionTable extends Component{
-
-    state = {
-        users : UserData
+class UserTable extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            limit : 10,
+            page : 1
+        }
     }
 
     render() {
-    return (
-        <TableContainer component={Paper} className = "table">
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                <TableRow>
-                    <TableCell className="tableCell">ID</TableCell>
-                    <TableCell className="tableCell" align="left">First Name</TableCell>
-                    <TableCell className="tableCell" align="left">Last Name</TableCell>
-                    <TableCell className="tableCell" align="left">Image</TableCell>
-                    <TableCell className="tableCell" align="left">Age</TableCell>
-                    <TableCell className="tableCell" align="left">Date of Birth</TableCell>
-                    <TableCell className="tableCell" align="left">Phone</TableCell>
-                    <TableCell className="tableCell" align="left">Email</TableCell>
-                    <TableCell className="tableCell" align="left">Blood Group</TableCell>
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                {this.state.users.map((row) => (
-                    <TableRow
-                        key={row.name}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                        <TableCell className="tableCell">{row.id} </TableCell>
-                        <TableCell className="tableCell" align="left">{row.firstName}</TableCell>
-                        <TableCell className="tableCell" align="left">{row.lastName}</TableCell>
-                        <TableCell className="tableCell" align="left">
-                            <Avatar src= {row.image} />
-                        </TableCell>
-                        <TableCell className="tableCell" align="left">{row.age}</TableCell>
-                        <TableCell className="tableCell" align="left">{row.birthDate}</TableCell>
-                        <TableCell className="tableCell" align="left">{row.phone}</TableCell>
-                        <TableCell className="tableCell" align="left">{row.email}</TableCell>
-                        <TableCell className="tableCell" align="left">{row.bloodGroup} </TableCell>
+        console.log(this.props.data.variables)
+        const {users, loading} = this.props.data;
+        console.log(this.props.data)
+    
+        if(loading){
+            return <div> Loading...</div>
+        }
+        
+        return (
+            <TableContainer component={Paper} className = "table">
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                    <TableRow>
+                        <TableCell className="tableCell">ID</TableCell>
+                        <TableCell className="tableCell" align="left">First Name</TableCell>
+                        <TableCell className="tableCell" align="left">Last Name</TableCell>
+                        <TableCell className="tableCell" align="left">Image</TableCell>
+                        <TableCell className="tableCell" align="left">Age</TableCell>
+                        <TableCell className="tableCell" align="left">Date of Birth</TableCell>
+                        <TableCell className="tableCell" align="left">Phone</TableCell>
+                        <TableCell className="tableCell" align="left">Email</TableCell>
+                        <TableCell className="tableCell" align="left">Blood Group</TableCell>
                     </TableRow>
-                ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    );
-}
+                    </TableHead>
+                    <TableBody>
+                    {users?.map((row) => (
+                        <TableRow
+                            key={row.id}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            <TableCell className="tableCell">{row.id} </TableCell>
+                            <TableCell className="tableCell" align="left">{row.firstName}</TableCell>
+                            <TableCell className="tableCell" align="left">{row.lastName}</TableCell>
+                            <TableCell className="tableCell" align="left">
+                                <Avatar src= {row.image} />
+                            </TableCell>
+                            <TableCell className="tableCell" align="left">{row.age}</TableCell>
+                            <TableCell className="tableCell" align="left">{row.birthDate}</TableCell>
+                            <TableCell className="tableCell" align="left">{row.phone}</TableCell>
+                            <TableCell className="tableCell" align="left">{row.email}</TableCell>
+                            <TableCell className="tableCell" align="left">{row.bloodGroup} </TableCell>
+                        </TableRow>
+                    ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        );
+    }
 }
 
-export default TransactionTable;
+export default graphql(UserQuery) (UserTable);
