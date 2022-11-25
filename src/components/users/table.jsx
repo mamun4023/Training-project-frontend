@@ -14,8 +14,8 @@ import { graphql } from 'react-apollo';
  
 
 const UserQuery = gql`
-  query {
-    users(limit: 10, page : 1) {
+  query ($limit : ID!, $page : ID!) {
+    users(limit: $limit , page : $page) {
         id,
         firstName,
         lastName,
@@ -29,13 +29,6 @@ const UserQuery = gql`
   }`
 
 class UserTable extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            limit : 10,
-            page : 1
-        }
-    }
 
     render() {
         console.log(this.props.data.variables)
@@ -88,4 +81,11 @@ class UserTable extends Component{
     }
 }
 
-export default graphql(UserQuery) (UserTable);
+export default graphql(UserQuery, {
+    options : (props)=> ({
+        variables : {
+            limit : 10,
+            page : 1
+        }
+    })
+}) (UserTable);

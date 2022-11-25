@@ -13,8 +13,8 @@ import { graphql } from 'react-apollo';
  
 
 const TransactionQuery = gql`
-  query {
-    transactions(limit: 10, page : 1) {
+  query ($limit: ID!, $page : ID!) {
+    transactions(limit: $limit, page : $page) {
         id,
         tranc_id,
         productName,
@@ -76,4 +76,11 @@ class TransactionTable extends Component{
 }
 }
 
-export default graphql(TransactionQuery)(TransactionTable);
+export default graphql(TransactionQuery, {
+    options : (props)=> ({
+        variables : {
+            limit : 10,
+            page : 1
+        }
+    })
+})(TransactionTable);

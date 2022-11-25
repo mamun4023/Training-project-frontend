@@ -15,8 +15,8 @@ import { graphql } from 'react-apollo';
 
 
 const ProductQuery = gql`
-  query {
-    products(limit: 10, page : 1) {
+  query ($limit : ID!, $page : ID!) {
+    products(limit: $limit, page : $page) {
         id,
         title,
         image,
@@ -31,7 +31,6 @@ const ProductQuery = gql`
 
 
 class TransactionTable extends Component{
-
 
     render() {  
        
@@ -60,7 +59,7 @@ class TransactionTable extends Component{
                     <TableBody>
                     {products?.map((row) => (
                         <TableRow
-                            key={row.name}
+                            key={row.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell className="tableCell">{row.id} </TableCell>
@@ -73,7 +72,7 @@ class TransactionTable extends Component{
                             <TableCell className="tableCell">${row.price} </TableCell>
                             <TableCell className="tableCell">${row.discount} </TableCell>
                             <TableCell className="tableCell">
-                                <Rating sx={{color : 'black'}} name="read-only"value={row.rating} readOnly />
+                                <Rating sx={{color : 'black'}} name="read-only"value={parseInt(row.rating)} readOnly />
                             </TableCell>
                             <TableCell className="tableCell">{row.stock} </TableCell>
                             <TableCell className="tableCell">{row.brand} </TableCell>
@@ -87,4 +86,11 @@ class TransactionTable extends Component{
     }
 }
 
-export default graphql(ProductQuery)(TransactionTable);
+export default graphql(ProductQuery, {
+    options : (props)=> ({
+        variables : {
+            limit : 10,
+            page : 1
+        }
+    })
+})(TransactionTable);
