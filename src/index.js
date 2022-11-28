@@ -1,20 +1,22 @@
-import React from 'react';
+import React, {createContext} from 'react';
 import ReactDom from 'react-dom';
 import App from './App';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+import {DarkModeContextProvider} from './contextAPI/darkMode';
 
 
 const Client = new ApolloClient({ 
   uri: 'http://localhost:4000',
-  connectToDevTools: true
-
-
 });
 
 ReactDom.render(
-  <ApolloProvider client={Client}> 
-    <App />
-  </ApolloProvider>,
+  
+  <DarkModeContextProvider>
+    <ApolloProvider client={Client}>
+        <App /> 
+    </ApolloProvider>
+  </DarkModeContextProvider>
+  ,
   document.getElementById('root')
 );

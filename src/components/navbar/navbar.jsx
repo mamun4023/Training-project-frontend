@@ -4,6 +4,8 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import {DarkModeContext} from '../../contextAPI/darkMode'
 
 class Navbar extends Component{
     render (){
@@ -29,6 +31,18 @@ class Navbar extends Component{
                             <ChatBubbleOutlineOutlinedIcon className="icon"/>
                             <div className="counter">2 </div>
                         </div>
+                        <DarkModeContext.Consumer>
+                            {
+                                ({ changer})=> {
+                                    return (
+                                        <div className="item">
+                                        <DarkModeIcon onClick={()=> changer()} className="icon"/>
+                                    </div>
+                                    )
+                                }
+                            }
+                        </DarkModeContext.Consumer>
+                       
                         <div className="item">
                             <img 
                                 src="https://t4.ftcdn.net/jpg/02/24/86/95/360_F_224869519_aRaeLneqALfPNBzg0xxMZXghtvBXkfIA.jpg"

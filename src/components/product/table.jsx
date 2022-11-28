@@ -8,7 +8,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Avatar, colors, Rating} from "@mui/material";
-import ProductData from '../../jsondata/product.json'
 import ImageIcon from '@mui/icons-material/Image';
 import { gql } from 'apollo-boost';
 import { graphql } from 'react-apollo';
@@ -29,11 +28,10 @@ const ProductQuery = gql`
     }
   }`
 
-
 class TransactionTable extends Component{
 
     render() {  
-       
+        
         const {products, loading} = this.props.data;
 
         if(loading){

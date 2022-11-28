@@ -7,7 +7,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import UserData from '../../jsondata/user.json'
 import { Avatar } from "@mui/material";
 import { gql } from 'apollo-boost';
 import { graphql } from 'react-apollo';
@@ -31,10 +30,7 @@ const UserQuery = gql`
 class UserTable extends Component{
 
     render() {
-        console.log(this.props.data.variables)
         const {users, loading} = this.props.data;
-        console.log(this.props.data)
-    
         if(loading){
             return <div> Loading...</div>
         }
