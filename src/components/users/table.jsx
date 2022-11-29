@@ -1,5 +1,5 @@
-import "./table.scss"
 import React, {Component} from 'react';
+import compose from 'recompose/compose';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,10 +7,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Avatar } from "@mui/material";
+import { Avatar, Button, IconButton } from "@mui/material";
 import { gql } from 'apollo-boost';
 import { graphql } from 'react-apollo';
- 
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import {withStyles} from '@mui/styles';
+
+
+const Styles = (theme)=> ({
+    
+
+})
+
 
 const UserQuery = gql`
   query ($limit : ID!, $page : ID!) {
@@ -26,6 +35,8 @@ const UserQuery = gql`
         bloodGroup
     }
   }`
+
+
 
 class UserTable extends Component{
 
@@ -49,6 +60,7 @@ class UserTable extends Component{
                         <TableCell className="tableCell" align="left">Phone</TableCell>
                         <TableCell className="tableCell" align="left">Email</TableCell>
                         <TableCell className="tableCell" align="left">Blood Group</TableCell>
+                        <TableCell className="tableCell" align="left">ACTIONS</TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -68,6 +80,14 @@ class UserTable extends Component{
                             <TableCell className="tableCell" align="left">{row.phone}</TableCell>
                             <TableCell className="tableCell" align="left">{row.email}</TableCell>
                             <TableCell className="tableCell" align="left">{row.bloodGroup} </TableCell>
+                            <TableCell className="tableCell" align="left">
+                                <IconButton color="success"> 
+                                    <EditIcon/> 
+                                </IconButton>
+                                <IconButton color="error"> 
+                                    <DeleteIcon/> 
+                                </IconButton>
+                            </TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
@@ -77,11 +97,11 @@ class UserTable extends Component{
     }
 }
 
-export default graphql(UserQuery, {
+export default compose( graphql(UserQuery, {
     options : (props)=> ({
         variables : {
             limit : 10,
             page : 1
         }
     })
-}) (UserTable);
+}), withStyles(Styles)) (UserTable);

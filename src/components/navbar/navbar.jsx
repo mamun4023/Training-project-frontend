@@ -1,52 +1,103 @@
 import React, {Component} from "react";
-import "./navbar.scss"
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import {DarkModeContext} from '../../contextAPI/darkMode'
+import {withStyles} from '@mui/styles';
+
+
+const Styles = (theme)=> ({
+    navbar : {
+        height: "50px",
+        borderBottom: "0.5px solid rgb(231, 228, 228)",
+        display: "flex",
+        alignItems: "center",
+        fontSize: "14px",
+        columns: "#555"
+    },
+    wrapper : {
+        width: "100%",
+        padding: "20px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+
+    items : {
+        display: "flex"
+    },
+
+    item : {
+        display: "flex",
+        alignItems: "center",
+        marginRight: "20px",
+        position: "relative",
+    },
+
+    icon : {
+        fontSize: "20px",
+    },
+
+    avatar : {
+        height: "30px",
+        width: "30px",
+        borderRadius: "50%"
+    },
+
+    counter : {
+        width: "15px",
+        height: "15px",
+        backgroundColor: "red",
+        borderRadius: "50%",
+        color: "white",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "10px",
+        fontWeight: "bold",
+        position : "absolute",
+        top: "-1px",
+        left: "10px"
+    }
+})
 
 class Navbar extends Component{
     render (){
+        const {classes} = this.props;
         return(
-            <div className="navbar">
-                <div className="wrapper">
-                    {/* <div className="search">
-                        <input type="text" placeholder="Search..."  />
-                        <SearchOutlinedIcon className="search-icon"/>
-                    </div> */}
+            <div className= {classes.navbar}>
+                <div className= {classes.wrapper}>
                     <div></div>
-
-                    <div className="items">
-                        <div className="item">
-                            <LanguageOutlinedIcon  className="icon"/>
+                    <div className= {classes.items}>
+                        <div className= {classes.item}>
+                            <LanguageOutlinedIcon  className= {classes.icon}/>
                             English
                         </div>
-                        <div className="item">
-                            <NotificationsNoneOutlinedIcon className="icon"/>
-                            <div className="counter"> 5</div>
+                        <div className= {classes.item}>
+                            <NotificationsNoneOutlinedIcon className= {classes.icon}/>
+                            <div className= {classes.counter}> 5</div>
                         </div>
-                        <div className="item">
-                            <ChatBubbleOutlineOutlinedIcon className="icon"/>
-                            <div className="counter">2 </div>
+                        <div className= {classes.item}>
+                            <ChatBubbleOutlineOutlinedIcon className= {classes.icon}/>
+                            <div className= {classes.counter}>2 </div>
                         </div>
                         <DarkModeContext.Consumer>
                             {
                                 ({ changer})=> {
                                     return (
-                                        <div className="item">
-                                        <DarkModeIcon onClick={()=> changer()} className="icon"/>
+                                        <div className= {classes.item}>
+                                        <DarkModeIcon onClick={()=> changer()} className= {classes.icon}/>
                                     </div>
                                     )
                                 }
                             }
                         </DarkModeContext.Consumer>
                        
-                        <div className="item">
+                        <div className= {classes.item}>
                             <img 
                                 src="https://t4.ftcdn.net/jpg/02/24/86/95/360_F_224869519_aRaeLneqALfPNBzg0xxMZXghtvBXkfIA.jpg"
-                                className="avatar"
+                                className= {classes.avatar}
                                 style={{
                                     border : '1px solid gray'
                                 }}
@@ -59,4 +110,4 @@ class Navbar extends Component{
     }
 }
 
-export default Navbar;
+export default withStyles(Styles) (Navbar);
