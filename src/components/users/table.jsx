@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import compose from 'recompose/compose';
+import HOC_Compose from 'recompose/compose';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,12 +8,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Avatar, Button, IconButton } from "@mui/material";
-import { gql } from 'apollo-boost';
+import { gql} from 'apollo-boost';
 import { graphql } from 'react-apollo';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {withStyles} from '@mui/styles';
-
 
 const Styles = (theme)=> ({
     
@@ -38,13 +37,50 @@ const UserQuery = gql`
 
 
 
+const RemoveUser = gql`
+  mutation RemoveUser ($id : ID!) {
+    removeUser(id: $id) {
+        firstName,
+    }
+  }`
+
+
 class UserTable extends Component{
+    constructor(props){
+        super(props);
+
+        this.RemoveUser = this.RemoveUser.bind(this)
+        this.Refetch = this.Refetch.bind(this)
+    }
+
+
+    Refetch(){
+        this.props.userList.refetch({
+            variables : {
+                limit : 10,
+                page : 1
+            }
+        })
+    }
+
+    RemoveUser(id){
+        this.props.RemoveUser({
+            variables : {
+                id : id
+            }
+        })
+        this.Refetch();
+    }
+
 
     render() {
-        const {users, loading} = this.props.data;
+        const {users, loading} = this.props.userList;
+
         if(loading){
             return <div> Loading...</div>
         }
+       
+        // console.log(this.props)
         
         return (
             <TableContainer component={Paper} className = "table">
@@ -81,10 +117,10 @@ class UserTable extends Component{
                             <TableCell className="tableCell" align="left">{row.email}</TableCell>
                             <TableCell className="tableCell" align="left">{row.bloodGroup} </TableCell>
                             <TableCell className="tableCell" align="left">
-                                <IconButton color="success"> 
+                                {/* <IconButton color="success"> 
                                     <EditIcon/> 
-                                </IconButton>
-                                <IconButton color="error"> 
+                                </IconButton> */}
+                                <IconButton onClick={()=> this.RemoveUser(row.id)} color="error"> 
                                     <DeleteIcon/> 
                                 </IconButton>
                             </TableCell>
@@ -97,11 +133,23 @@ class UserTable extends Component{
     }
 }
 
-export default compose( graphql(UserQuery, {
-    options : (props)=> ({
-        variables : {
-            limit : 10,
-            page : 1
-        }
-    })
-}), withStyles(Styles)) (UserTable);
+export default HOC_Compose(
+
+        graphql(UserQuery, {
+            name : "userList",
+            options : (props)=> ({
+                variables : {
+                    limit : 10,
+                    page : 1
+                }
+            })
+        }), 
+
+        graphql(
+            RemoveUser, {
+                name : "RemoveUser"
+            }
+        ),
+    
+
+ withStyles(Styles)) (UserTable);
