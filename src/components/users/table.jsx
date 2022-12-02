@@ -35,12 +35,10 @@ const UserQuery = gql`
     }
   }`
 
-
-
 const RemoveUser = gql`
   mutation RemoveUser ($id : ID!) {
     removeUser(id: $id) {
-        firstName,
+        message,
     }
   }`
 
@@ -52,7 +50,6 @@ class UserTable extends Component{
         this.RemoveUser = this.RemoveUser.bind(this)
         this.Refetch = this.Refetch.bind(this)
     }
-
 
     Refetch(){
         this.props.userList.refetch({
@@ -69,6 +66,7 @@ class UserTable extends Component{
                 id : id
             }
         })
+        console.log(this.props)
         this.Refetch();
     }
 
@@ -80,8 +78,6 @@ class UserTable extends Component{
             return <div> Loading...</div>
         }
        
-        // console.log(this.props)
-        
         return (
             <TableContainer component={Paper} className = "table">
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">

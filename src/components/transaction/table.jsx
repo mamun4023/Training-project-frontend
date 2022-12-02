@@ -54,14 +54,14 @@ class TransactionTable extends Component{
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                 <TableRow>
-                    <TableCell className="tableCell">ID</TableCell>
-                    <TableCell className="tableCell">Tracking ID</TableCell>
-                    <TableCell className="tableCell" align="right">Product</TableCell>
-                    <TableCell className="tableCell" align="right">Customer</TableCell>
-                    <TableCell className="tableCell" align="right">Date</TableCell>
-                    <TableCell className="tableCell" align="right">Amount</TableCell>
-                    <TableCell className="tableCell" align="right">Payment Method</TableCell>
-                    <TableCell className="tableCell" align="right">Status</TableCell>
+                    <TableCell className="tableCell" align="left">ID</TableCell>
+                    <TableCell className="tableCell" align="left">Tracking ID</TableCell>
+                    <TableCell className="tableCell" align="left">Product</TableCell>
+                    <TableCell className="tableCell" align="left">Customer</TableCell>
+                    <TableCell className="tableCell" align="left">Date</TableCell>
+                    <TableCell className="tableCell" align="left">Amount</TableCell>
+                    <TableCell className="tableCell" align="left">Payment Method</TableCell>
+                    <TableCell className="tableCell" align="left">Status</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -70,14 +70,14 @@ class TransactionTable extends Component{
                         key={row.id}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >   
-                        <TableCell className="tableCell">{row.id} </TableCell>
-                        <TableCell className="tableCell">{row.tranc_id} </TableCell>
-                        <TableCell className="tableCell" align="right">{row.productName}</TableCell>
-                        <TableCell className="tableCell" align="right">{row.userName}</TableCell>
-                        <TableCell className="tableCell" align="right">{row.date}</TableCell>
-                        <TableCell className="tableCell" align="right">${row.amount}</TableCell>
-                        <TableCell className="tableCell" align="right">{row.pay_method}</TableCell>
-                        <TableCell className="tableCell" align="right">
+                        <TableCell className="tableCell" align="left">{row.id} </TableCell>
+                        <TableCell className="tableCell" align="left">{row.tranc_id} </TableCell>
+                        <TableCell className="tableCell" align="left">{row.productName}</TableCell>
+                        <TableCell className="tableCell" align="left">{row.userName}</TableCell>
+                        <TableCell className="tableCell" align="left">{row.date}</TableCell>
+                        <TableCell className="tableCell" align="left">${row.amount}</TableCell>
+                        <TableCell className="tableCell" align="left">{row.pay_method}</TableCell>
+                        <TableCell className="tableCell" align="left">
                                 <span className= {row.status== "pending"?classes.pending : classes.approved} >{row.status}</span>
                         </TableCell>
                     </TableRow>

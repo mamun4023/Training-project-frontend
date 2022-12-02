@@ -10,9 +10,9 @@ import { graphql } from 'react-apollo';
 
 
 const  Add_User = gql`
-    mutation AddUser ($firstName: String!, $lastName : String!, $image : String!, $age : String!, $gender : String! , $birthDate : String!, $phone : String!, $email : String!, $bloodGroup : String!) {
-        addUser(firstName: $firstName, lastName: $lastName, image: $image,  age : $age, gender : $gender, birthDate : $birthDate, phone : $phone, email : $email, bloodGroup : $bloodGroup){
-            firstName
+    mutation AddUser ($firstName: String!, $lastName : String!, $image : String!, $age : String!, $birthDate : String!, $phone : String!, $email : String!, $bloodGroup : String!) {
+        addUser(firstName: $firstName, lastName: $lastName, image: $image,  age : $age, birthDate : $birthDate, phone : $phone, email : $email, bloodGroup : $bloodGroup){
+            message
         }
     }
 `;
@@ -27,7 +27,6 @@ class AddUser extends Component{
             lastName :  "",
             image : "",
             age : "",
-            gender : "",
             birthDate : "",
             phone :  "",
             email : "",
@@ -43,10 +42,12 @@ class AddUser extends Component{
         })
         this.props.AddUserResult.client.resetStore();
         this.props.handleClose();
+       
     }
 
   render(){
      const {open, handleClickOpen, handleClose} = this.props;
+     console.log(this.props)
         return (
             <div>
                 
@@ -88,14 +89,6 @@ class AddUser extends Component{
                             fullWidth
                             variant="standard"
                             onChange={(e)=>this.setState({age : e.target.value})}
-                        />
-                        <TextField
-                            margin="dense"
-                            label="Gender"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                            onChange={(e)=>this.setState({gender : e.target.value})}
                         />
                         <TextField
                             margin="dense"
