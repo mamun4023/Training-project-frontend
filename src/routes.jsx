@@ -7,6 +7,7 @@ import Product from './pages/product/product';
 import User from './pages/user/user';
 import Transaction from './pages/transaction/transaction'
 
+const token = localStorage.getItem('token');
 
 class Routing extends Component{
 
@@ -14,12 +15,19 @@ class Routing extends Component{
         return(
                 <BrowserRouter>
                     <Switch>
-    
-                        <Route exact path= "/"  component={User} />
-                        <Route  path= "/signup"  component={SignUp} />
-                        <Route  path= "/signin"  component={SignIn} />
-                        <Route path= "/products"  component={Product} />
-                        <Route path= "/transactions"  component={Transaction} />
+                        {
+                            token ? 
+                                <>
+                                    <Route exact path= "/users"  component={User} />
+                                    <Route path= "/products"  component={Product} />
+                                    <Route path= "/transactions"  component={Transaction} />
+                                </>: 
+                                <>
+                                    <Route  path= "/signup"  component={SignUp} />
+                                    <Route  path= "/"  component={SignIn} />
+                                </>
+
+                        }
                     </Switch>
                 </BrowserRouter>            
             

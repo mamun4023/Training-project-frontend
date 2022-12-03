@@ -45,12 +45,10 @@ const Styles = (theme)=>({
             backgroundColor: "#ece8ff"
         }
     },
-
     icon : {
         fontSize: "18px",
         color: "black"
     }
-
 })
 
 class Sidebar extends Component{
@@ -64,7 +62,7 @@ class Sidebar extends Component{
                 <hr/>
                 <div className= {classes.center}> 
                     <ul className= {classes.list}>
-                        <Link className= {classes.link} to= "/"> 
+                        <Link className= {classes.link} to= "/users"> 
                             <li className= {classes.listItem}> 
                                 <Person3OutlinedIcon className= {classes.icon}/>
                                 <span className= {classes.title} > Users </span>

@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import {toast} from 'material-react-toastify';
+import {withRouter } from 'react-router-dom';
 import {
     Card,
     CardContent,
@@ -37,7 +39,6 @@ const userLogin = gql`
 class SignIn extends Component{
     constructor(props){
         super(props);
-
         this.state = {
             email : "",
             password : ""
@@ -47,20 +48,30 @@ class SignIn extends Component{
     Login(user){
         this.props.UserLogin({
             variables : user,
+        }).then(res =>{
+            let successRes = res.data?.userLogin?.message;
+            let token = res.data?.userLogin?.token;
+            localStorage.setItem('token', token)
+            toast.success(successRes);
+            
+            setTimeout(()=>{
+               window.location.replace('/users')
+            }, 3000)
+
+        }).catch(err =>{
+            let errRes = err.graphQLErrors[0]?.message;
+            toast.error(errRes)
         })
     }
 
     SubmitHandler = (e)=>{
         e.preventDefault();
-        this.Login(this.state);
-
-        console.log(this.props)
-        console.log(this.props.UserLoginResult.client.cache.data)
+        this.Login(this.state)
     }
 
     render(){
         const {classes} = this.props;
-        // const {}  = this.props.UserLogin;
+
         return(
             <Box className= {classes.contianer} sx={{ maxWidth: 350 }}>
                 <Card sx={{marginTop : "20%"}}>
@@ -70,7 +81,7 @@ class SignIn extends Component{
                         </Typography>
 
                         <form onSubmit={this.SubmitHandler}>
-                             <TextField
+                            <TextField
                                 fullWidth
                                 margin="dense"
                                 type= "text"
@@ -104,4 +115,5 @@ class SignIn extends Component{
 
 export default compose(
     graphql(userLogin, {name : "UserLogin"}),
+    withRouter,
     withStyles(Styles)) (SignIn);

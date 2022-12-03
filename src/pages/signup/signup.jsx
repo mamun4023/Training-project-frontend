@@ -14,6 +14,7 @@ import { gql } from 'apollo-boost';
 import { graphql } from 'react-apollo';
 import Compose from 'recompose/compose';
 import {withRouter } from 'react-router-dom';
+import { toast } from "material-react-toastify";
 
 const Styles = (theme)=>({
     contianer : {
@@ -28,7 +29,9 @@ const Styles = (theme)=>({
 
 const userRegister = gql`
 mutation($fullName : String!, $email : String!, $password : String!){
-    userSignUp(fullName : $fullName, email : $email, password : $password)
+    userSignUp(fullName : $fullName, email : $email, password : $password){
+        message
+    }
   }
 `
 
@@ -48,11 +51,17 @@ class SignUP extends Component{
         e.preventDefault();
         this.props.User_Registration({
             variables : this.state
+        }).then(res =>{
+            let succesRes = res.data?.userSignUp?.message
+            toast.success(succesRes)
         })
+
+        setTimeout(()=>{
+            this.props.history.push({
+                pathname : '/signin'
+            })
+        }, 3000)
         
-        this.props.history.push({
-            pathname : '/signin'
-        })
     }
 
     render(){

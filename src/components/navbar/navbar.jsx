@@ -5,7 +5,8 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import {DarkModeContext} from '../../contextAPI/darkMode'
 import {withStyles} from '@mui/styles';
-
+import { IconButton } from "@mui/material";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Styles = (theme)=> ({
     navbar : {
@@ -63,6 +64,13 @@ const Styles = (theme)=> ({
 })
 
 class Navbar extends Component{
+
+
+    LogoutHadler=()=>{
+        localStorage.removeItem('token');
+        window.location.replace('/signin')
+    }
+
     render (){
         const {classes} = this.props;
         return(
@@ -94,15 +102,11 @@ class Navbar extends Component{
                             }
                         </DarkModeContext.Consumer>
                        
-                        <div className= {classes.item}>
-                            <img 
-                                src="https://t4.ftcdn.net/jpg/02/24/86/95/360_F_224869519_aRaeLneqALfPNBzg0xxMZXghtvBXkfIA.jpg"
-                                className= {classes.avatar}
-                                style={{
-                                    border : '1px solid gray'
-                                }}
-                            />
-                        </div>
+                        <IconButton 
+                            onClick={this.LogoutHadler}
+                         className= {classes.item}>
+                            <LogoutIcon />
+                        </IconButton>
                     </div>
                 </div>
             </div>

@@ -6,21 +6,22 @@ import { ApolloProvider } from 'react-apollo';
 import {DarkModeContextProvider} from './contextAPI/darkMode';
 import { styled, ThemeProvider } from '@mui/styles';
 import { createTheme } from '@mui/material/styles'
+import 'material-react-toastify/dist/ReactToastify.css';
 
 const Client = new ApolloClient({ 
   uri: 'http://localhost:4000',
-  cache : new InMemoryCache()
-  // fetchOptions : {
-  //   credentials : "include"
-  // },
-  // request : operation =>{
-  //   const token = localStorage.getItem('authToken')|| ""
-  //   operation.setContext({
-  //     headers : {
-  //       authorization : 'JWT'
-  //     }
-  //   })
-  // }
+  cache : new InMemoryCache(),
+  fetchOptions : {
+    credentials : "include"
+  },
+  request : operation =>{
+    const token = localStorage.getItem('token')|| ""
+    operation.setContext({
+      headers : {
+        authorization : token
+      }
+    })
+  }
 });
 
 const theme = createTheme()
