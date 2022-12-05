@@ -8,11 +8,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Avatar, Button, IconButton } from "@mui/material";
+import {Link} from 'react-router-dom';
 import { gql} from 'apollo-boost';
 import { graphql } from 'react-apollo';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {withStyles} from '@mui/styles';
+import EditUser from '../../section/user/editUser';
 
 const Styles = (theme)=> ({
     
@@ -46,9 +48,29 @@ const RemoveUser = gql`
 class UserTable extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            open : false,
+            id : 1
+        }
 
         this.RemoveUser = this.RemoveUser.bind(this)
         this.Refetch = this.Refetch.bind(this)
+        this.handleClickOpen = this.handleClickOpen.bind(this)
+        this.handleClose = this.handleClose.bind(this)
+    }
+
+
+    handleClickOpen(id){
+        this.setState({
+            open : true,
+            id : id
+        })
+    }
+
+    handleClose(){
+        this.setState({
+            open : false
+        })
     }
 
     Refetch(){
@@ -66,7 +88,6 @@ class UserTable extends Component{
                 id : id
             }
         })
-        console.log(this.props)
         this.Refetch();
     }
 
@@ -113,9 +134,12 @@ class UserTable extends Component{
                             <TableCell className="tableCell" align="left">{row.email}</TableCell>
                             <TableCell className="tableCell" align="left">{row.bloodGroup} </TableCell>
                             <TableCell className="tableCell" align="left">
-                                {/* <IconButton color="success"> 
-                                    <EditIcon/> 
-                                </IconButton> */}
+                                <IconButton 
+                                    color="success" 
+                                    onClick = {()=>this.handleClickOpen(row.id)}
+                                > 
+                                    <EditIcon />     
+                                </IconButton>
                                 <IconButton onClick={()=> this.RemoveUser(row.id)} color="error"> 
                                     <DeleteIcon/> 
                                 </IconButton>
@@ -124,13 +148,20 @@ class UserTable extends Component{
                     ))}
                     </TableBody>
                 </Table>
+              { this.state.open &&  <EditUser 
+                    id = {this.state.id}
+                    open = {this.state.open}
+                    handleClickOpen = {this.handleClickOpen}
+                    handleClose = {this.handleClose}
+                    refresh = {this.Refetch}
+                />
+              }
             </TableContainer>
         );
     }
 }
 
 export default HOC_Compose(
-
         graphql(UserQuery, {
             name : "userList",
             options : (props)=> ({
@@ -147,5 +178,4 @@ export default HOC_Compose(
             }
         ),
     
-
  withStyles(Styles)) (UserTable);

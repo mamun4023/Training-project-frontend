@@ -4,7 +4,6 @@ import {DarkModeContext} from './contextAPI/darkMode'
 import {withStyles} from '@mui/styles';
 import { ToastContainer } from 'material-react-toastify';
 
-
 const Styles = (theme)=> ({
     app : {
         backgroundColor : "#222",

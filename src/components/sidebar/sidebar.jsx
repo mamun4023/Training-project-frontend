@@ -42,12 +42,12 @@ const Styles = (theme)=>({
         padding : '8px',
         cursor : "pointer",
         '&:hover' : {
-            backgroundColor: "#ece8ff"
+            backgroundColor: theme.palette.primary.light,
+            color : 'white'
         }
     },
     icon : {
         fontSize: "18px",
-        color: "black"
     }
 })
 

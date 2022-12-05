@@ -4,7 +4,9 @@ import Navbar from '../../components/navbar/navbar';
 import UserTable from '../../components/users/table'
 import {Button, Typography} from '@mui/material';
 import AddUser from '../../section/user/addUser'
+import EditUesr from '../../section/user/editUser';
 import { withStyles } from '@mui/styles';
+
 
 const styles = (theme)=> ({
     container : {

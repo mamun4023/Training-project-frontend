@@ -1,6 +1,6 @@
 import React, {createContext} from 'react';
 import ReactDom from 'react-dom';
-import App from './App';
+import App from './App.jsx';
 import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import {DarkModeContextProvider} from './contextAPI/darkMode';

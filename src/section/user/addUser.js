@@ -47,7 +47,6 @@ class AddUser extends Component{
 
   render(){
      const {open, handleClickOpen, handleClose} = this.props;
-     console.log(this.props)
         return (
             <div>
                 
@@ -93,7 +92,8 @@ class AddUser extends Component{
                         <TextField
                             margin="dense"
                             label="Date of Birth"
-                            type="text"
+                            InputLabelProps={{shrink : true}}
+                            type="date"
                             fullWidth
                             variant="standard"
                             onChange={(e)=>this.setState({birthDate : e.target.value})}
